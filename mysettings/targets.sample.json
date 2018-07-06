@@ -1,12 +1,30 @@
 {
-  "green": {
-    "url": "https://www.green-japan.com/new/01",
-    "cassette": ".card-info__wrapper",
-    "selectors": [".card-info__heading-area__title", ".job-offer-meta-tags > li:first-child"]
+  "reworker": {
+    "url": "https://www.reworker.jp/recruitments/new",
+    "cassette": ".recruitment-list__body",
+    "selectors": [
+      {
+        "type": "text",
+        "selector": ".badge-job"
+      },
+      {
+        "type": "text",
+        "selector": ".recruitment-list__title"
+      },
+      {
+        "type": "link",
+        "selector": "a"
+      }
+    ]
   },
-  "lancersOfJavascript": {
-    "url": "https://www.lancers.jp/work/search?keyword=javascript&or=&not=&budget_from=&budget_to=",
+  "psvr": {
+    "url": "https://www.amazon.co.jp/s/gp/search/ref=sr_nr_p_76_0?fst=as%3Aoff&rh=n%3A637394%2Ck%3APlayStation+VR+PlayStation+Camera+%E5%90%8C%E6%A2%B1%E7%89%88%2Cp_n_condition-type%3A680602011%2Cp_n_availability%3A2227306051%2Cp_76%3A2227292051&keywords=PlayStation+VR+PlayStation+Camera+%E5%90%8C%E6%A2%B1%E7%89%88&ie=UTF8&qid=1530845627&rnid=2227291051",
     "cassette": "",
-    "selectors": [".c-media__title-inner"]
+    "selectors": [
+      {
+        "type": "text",
+        "selector": ".a-color-price.s-price"
+      }
+    ]
   }
 }

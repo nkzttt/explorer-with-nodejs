@@ -12,4 +12,11 @@ This is simply to get `innerText` of specified pages.
 2. Require the file within an `app.js` instead of the `/mysettings/targets.sample.json`.
 
 If you want to simply scraping then the `cassette` property set empty string as `""` and when the `selectors` property should have single value for array.  
-Otherwise set string of the selector then it's searching selector with in the `cassette`.  
+Otherwise set multi selectors then it's searching selector within the `cassette`.  
+
+`type` property of the selectors is specification that what to get property of node.
+
+| type | to get property |
+| :---: | :---: |
+| text | `innerText` |
+| link | `href` |

@@ -24,23 +24,44 @@ async function explorePage({url, cassette, selectors}) {
   await page.goto(url);
 
   // waiting for be visible
-  const forWaitSelector = cassette || selectors[0];
+  const forWaitSelector = cassette || selectors[0].selector;
   await page.waitForSelector(forWaitSelector);
 
   // execute client scripts
   const desiredData = await page.evaluate(({cassette, selectors}) => {
     if (cassette) {
+
       // search from element of parent of the selectors
       const cassetteNodes = Array.from(document.querySelectorAll(cassette));
       return cassetteNodes.map(cassetteNode => {
-        return selectors.map(selector => cassetteNode.querySelector(selector).innerText);
+        return selectors.map(({type, selector}) => {
+          const node = cassetteNode.querySelector(selector);
+          switch (type) {
+            case 'link':
+              return node.href;
+            case 'text':
+            default:
+              return node.innerText;
+          }
+        });
       });
+
     } else {
+
       // direct search for the selectors
-      return selectors.map(selector => {
-        const selectorNodes = Array.from(document.querySelectorAll(selector));
-        return selectorNodes.map(selectorNode => selectorNode.innerText);
+      return selectors.map(({type, selector}) => {
+        const nodes = Array.from(document.querySelectorAll(selector));
+        return nodes.map(node => {
+          switch (type) {
+            case 'link':
+              return node.href;
+            case 'text':
+            default:
+              return node.innerText;
+          }
+        });
       });
+
     }
   }, {cassette, selectors});
 
