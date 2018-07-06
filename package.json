@@ -1,0 +1,24 @@
+{
+  "name": "explorer-with-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "puppeteer": "^1.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nkzttt/explorer-with-nodejs.git"
+  },
+  "keywords": [],
+  "author": "nkzttt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nkzttt/explorer-with-nodejs/issues"
+  },
+  "homepage": "https://github.com/nkzttt/explorer-with-nodejs#readme"
+}

@@ -1,2 +1,5 @@
 .idea
 node_modules
+mysettings/*
+!mysettings/.gitkeep
+!mysettings/targets.sample.json

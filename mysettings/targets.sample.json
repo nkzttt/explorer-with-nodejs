@@ -1,0 +1,12 @@
+{
+  "green": {
+    "url": "https://www.green-japan.com/new/01",
+    "cassette": ".card-info__wrapper",
+    "selectors": [".card-info__heading-area__title", ".job-offer-meta-tags > li:first-child"]
+  },
+  "lancersOfJavascript": {
+    "url": "https://www.lancers.jp/work/search?keyword=javascript&or=&not=&budget_from=&budget_to=",
+    "cassette": "",
+    "selectors": [".c-media__title-inner"]
+  }
+}
