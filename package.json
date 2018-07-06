@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "deep-object-diff": "^1.1.0",
     "puppeteer": "^1.5.0"
   },
   "devDependencies": {},
