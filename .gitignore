@@ -3,5 +3,6 @@ node_modules
 mysettings/*
 !mysettings/.gitkeep
 !mysettings/targets.sample.json
+!mysettings/line.sample.json
 .cache/*
 !.cache/.gitkeep

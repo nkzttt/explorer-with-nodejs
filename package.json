@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@line/bot-sdk": "^6.1.0",
     "deep-object-diff": "^1.1.0",
     "puppeteer": "^1.5.0"
   },

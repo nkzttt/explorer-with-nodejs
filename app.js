@@ -2,8 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const {diff} = require('deep-object-diff');
-const targets = require('./mysettings/targets.sample');
+const {Client} = require('@line/bot-sdk');
+const targets = require('./mysettings/targets');
 const sites = Object.keys(targets);
+const line = require('./mysettings/line');
+const lineClient = new Client({
+  channelAccessToken: line.token,
+  channelSecret: line.secret
+});
 
 sites.forEach(site => fork(site));
 
@@ -16,18 +22,18 @@ async function fork(site) {
   const desiredData = await explorePage(targets[site]);
   const cacheDataPath = path.join(__dirname, '.cache', `${site}.json`);
 
-  // if missing before cache data when fall out block
+  // check cache data
+  let hasCache = false;
   try {
     fs.accessSync(cacheDataPath);
-  } catch (err) {
-    fs.writeFile(cacheDataPath, JSON.stringify(desiredData));
-    return;
-  }
+    hasCache = true;
+  } catch (err) {}
 
   // check updated
-  if (targets[site].noticeNewData) {
+  let newData;
+  if (hasCache && targets[site].noticeNewData) {
     const beforeData = JSON.parse(fs.readFileSync(cacheDataPath));
-    await checkUpdated({
+    newData = await checkUpdated({
       data: {
         before: beforeData,
         next: desiredData
@@ -36,8 +42,20 @@ async function fork(site) {
     });
   }
 
-  // todo: turn on
-  // fs.writeFile(filePath, JSON.stringify(desiredData));
+  // push line
+  if (targets[site].pushLine) {
+    const pushData = targets[site].noticeNewData ? newData : desiredData;
+    if (pushData) lineClient.pushMessage(line.userId, {type: 'text', text: `
+
+新しいデータを見つけました！
+
+${pushData}
+
+    `.trim()});
+  }
+
+  // update cache
+  fs.writeFile(cacheDataPath, JSON.stringify(desiredData));
 }
 
 /**
@@ -61,7 +79,8 @@ async function checkUpdated({data, site}) {
   if (matchedIndex !== 0) {
     newData = matchedIndex === -1 ? data.next : data.next.slice(0, matchedIndex);
   }
-  console.log(`newData: ${newData}`);
+
+  return newData;
 }
 
 /**
