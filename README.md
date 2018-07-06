@@ -18,7 +18,8 @@ This is simply to get `innerText` of specified pages.
 - `selectors`:
   - `type`: refer below table
   - `selector`: in the client code
-- `noticeNewData`: whether to search new data
+- `noticeNewData`: whether search new data
+- `pushLine`: whether push message for your line
 
 `type` property in the `selectors` is specification that what to get property of node.
 
