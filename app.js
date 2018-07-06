@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 const {diff} = require('deep-object-diff');
+const idx = require('idx');
 const {Client} = require('@line/bot-sdk');
 const targets = require('./mysettings/targets');
 const sites = Object.keys(targets);
@@ -44,7 +45,18 @@ async function fork(site) {
 
   // push line
   if (targets[site].pushLine) {
-    const pushData = targets[site].noticeNewData ? newData : desiredData;
+    let pushData = targets[site].noticeNewData ? newData : desiredData;
+
+    // to string
+    if (idx(pushData, _ => _.length)) {
+      pushData = pushData.map(currentData => {
+        if (idx(currentData, _ => _.length)) {
+          return currentData.join('\n')
+        }
+        return currentData;
+      }).join('\n\n');
+    }
+
     if (pushData) lineClient.pushMessage(line.userId, {type: 'text', text: `
 
 新しいデータを見つけました！
